@@ -5,17 +5,17 @@ var Engine = /** @class */ (function () {
     function Engine() {
         this._engineStatus = false;
     }
-    Object.defineProperty(Engine.prototype, "engineStatus", {
+    Object.defineProperty(Engine.prototype, "status", {
         get: function () {
             return this._engineStatus;
         },
         enumerable: false,
         configurable: true
     });
-    Engine.prototype.turnEngineOn = function () {
+    Engine.prototype.turnOn = function () {
         this._engineStatus = true;
     };
-    Engine.prototype.turnEngineOff = function () {
+    Engine.prototype.turnOff = function () {
         this._engineStatus = false;
     };
     return Engine;
