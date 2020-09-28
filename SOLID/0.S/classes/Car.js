@@ -28,6 +28,13 @@ var Car = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Car.prototype.drive = function (engine) {
+        if (engine.engineStatus === false || this._fuel <= 0) {
+            return;
+        }
+        this._fuel -= 1;
+        this._miles += this.FUEL_MILEAGE;
+    };
     return Car;
 }());
 exports.Car = Car;

@@ -26,9 +26,11 @@ export class Car {
         this._fuel = Math.min(fuel + this._fuel, this.MAXIMUM_FUEL_CAPACITY);
     }
 
-    /*drive(engine : Engine){
-        if (engine.){
-
+    drive(engine: Engine) {
+        if (engine.engineStatus === false || this._fuel <= 0) {
+            return;
         }
-    }*/
+        this._fuel -= 1;
+        this._miles += this.FUEL_MILEAGE;
+    }
 }
