@@ -1,1 +1,1 @@
-# Typescript
+# Learning S.O.L.I.D principles
