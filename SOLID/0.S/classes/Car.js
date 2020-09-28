@@ -83,10 +83,7 @@ var Car = /** @class */ (function () {
         //setInterval
         setInterval(function () {
             _this.drive();
-            //while it looks like both lines below are the same there is a subtle difference (you could put breakpoints here to see the difference):
-            // this <cast> will only tell TypeScript that the value is a string, but the actual variable in JS is not changed in any way: it is in reality still a number
             _this._milesElement.innerText = (_this.miles);
-            // This .toString() will actually convert the value in JavaScript from an integer to a string
             _this._fuelLevelElement.innerText = _this.fuel.toString();
             if (_this._musicPlayer.volume === 0) {
                 _this._audioElement.pause();
