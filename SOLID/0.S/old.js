@@ -1,7 +1,7 @@
 var Car = /** @class */ (function () {
     function Car(MAXIMUM_FUEL_CAPACITY) {
         //it is convention to start property names in TypeScript with an underscore.
-        // If you want to known why, remove the underscore and see if your compiler is throwing you an error!
+        // If you want to know why, remove the underscore and see if your compiler is throwing you an error!
         this._musicLevel = 0;
         this._oldMusicLevel = 50;
         this._fuel = 0;
