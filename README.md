@@ -67,7 +67,7 @@ This all probably means very little to you, which is why we are going to see eac
 
 * [Single Responsibility Principle](SOLID/0.S/readme.md) — Classes should have a single responsibility and thus only a single reason to change.
 * [Open–closed principle](SOLID/1.O/readme.md) — Classes and other entities should be open for extension but closed for modification.
-* [Liskov Substitution Principle](SOLID/2.L/readme.md) — Objects should be replaceable by their subtypes. See also design by contract. = polymorpism
+* [Liskov Substitution Principle](SOLID/2.L/readme.md) — Objects should be replaceable by their subtypes. See also design by contract. = polymorphism
 * [Interface Segregation Principle](SOLID/3.I/readme.md) — Interfaces should be client specific rather than general.
 * Dependency Inversion Principle — Depend on abstractions rather than concretions.
 
