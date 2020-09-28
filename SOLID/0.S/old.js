@@ -14,7 +14,7 @@ var Car = /** @class */ (function () {
         get: function () {
             return this._miles;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Car.prototype, "musicLevel", {
@@ -26,7 +26,7 @@ var Car = /** @class */ (function () {
             this._musicLevel = value;
             this._oldMusicLevel = value;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Car.prototype.turnMusicOn = function () {
@@ -39,7 +39,7 @@ var Car = /** @class */ (function () {
         get: function () {
             return this._fuel;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     //When a value can only go one way (you add fuel, consuming fuel is handled by the car itself)
@@ -52,7 +52,7 @@ var Car = /** @class */ (function () {
         get: function () {
             return this._engineStatus;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Car.prototype.turnEngineOn = function () {
@@ -90,10 +90,10 @@ musicToggleElement.addEventListener('click', function () {
     if (car.musicLevel === 0) {
         car.turnMusicOn();
         musicSliderElement.value = car.musicLevel.toString();
-        musicToggleElement.innerText = 'Turn music off';
+        musicToggleElement.innerText = 'Turn music on';
         return;
     }
-    musicToggleElement.innerText = 'Turn music on';
+    musicToggleElement.innerText = 'Turn music off';
     car.turnMusicOff();
 });
 //I use input instead of change, because then the value changes when I move the mouse, not only on release

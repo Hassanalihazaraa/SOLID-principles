@@ -93,10 +93,10 @@ musicToggleElement.addEventListener('click', () => {
     if(car.musicLevel === 0) {
         car.turnMusicOn();
         musicSliderElement.value = car.musicLevel.toString();
-        musicToggleElement.innerText = 'Turn music off';
+        musicToggleElement.innerText = 'Turn music on';
         return;
     }
-    musicToggleElement.innerText = 'Turn music on';
+    musicToggleElement.innerText = 'Turn music off';
     car.turnMusicOff();
 });
 
