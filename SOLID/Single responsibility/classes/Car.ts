@@ -1,7 +1,7 @@
 import {Engine} from "./Engine";
 import {MusicPlayer} from "./MusicPlayer";
 
-export class Car {
+class Car {
     private _miles: number = 0;
     private _fuel: number = 0;
     private readonly MAXIMUM_FUEL_CAPACITY: number;
@@ -19,6 +19,7 @@ export class Car {
 
     public constructor(MAXIMUM_FUEL_CAPACITY: number) {
         this.MAXIMUM_FUEL_CAPACITY = MAXIMUM_FUEL_CAPACITY;
+        this.render();
     }
 
     get miles(): number {
@@ -97,5 +98,4 @@ export class Car {
     }
 }
 
-let car = new Car(100);
-car.render();
+new Car(100);

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Car = void 0;
 var Car = /** @class */ (function () {
     function Car(MAXIMUM_FUEL_CAPACITY) {
         this._miles = 0;
@@ -15,6 +14,7 @@ var Car = /** @class */ (function () {
         this._milesElement = document.querySelector('#miles-value');
         this._audioElement = document.querySelector('#car-music');
         this.MAXIMUM_FUEL_CAPACITY = MAXIMUM_FUEL_CAPACITY;
+        this.render();
     }
     Object.defineProperty(Car.prototype, "miles", {
         get: function () {
@@ -95,6 +95,4 @@ var Car = /** @class */ (function () {
     };
     return Car;
 }());
-exports.Car = Car;
-var car = new Car(100);
-car.render();
+new Car(100);

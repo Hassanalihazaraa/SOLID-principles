@@ -85,7 +85,7 @@ const _addFuelForm = document.querySelector('#add-fuel-form');
 const _addFuelInput = <HTMLFormElement>document.querySelector('#add-fuel-input');
 const _fuelLevelElement = <HTMLElement>document.querySelector('#fuel-level');
 const _milesElement = <HTMLElement>document.querySelector('#miles-value');
-const _audioElement = <HTML_audioElement>document.querySelector('#car-music');
+const _audioElement = <HTMLAudioElement>document.querySelector('#car-music');
 
 let car = new Car(100);
 
