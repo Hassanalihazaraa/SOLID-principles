@@ -1,15 +1,15 @@
 export class Engine {
-    private _engineStatus: boolean = false;
+    private _status: boolean = false;
 
     get status(): boolean {
-        return this._engineStatus;
+        return this._status;
     }
 
     public turnOn() {
-        this._engineStatus = true;
+        this._status = true;
     }
 
     public turnOff() {
-        this._engineStatus = false;
+        this._status = false;
     }
 }

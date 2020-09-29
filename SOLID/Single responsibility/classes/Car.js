@@ -1,9 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var Engine_1 = require("./Engine");
+var MusicPlayer_1 = require("./MusicPlayer");
 var Car = /** @class */ (function () {
-    function Car(MAXIMUM_FUEL_CAPACITY) {
+    function Car(MAXIMUM_FUEL_CAPACITY, musicPlayer, engine) {
         this._miles = 0;
         this._fuel = 0;
+        this._musicTurnOn = 'Turn music on';
+        this._musicTurnOff = 'Turn music off';
         this.FUEL_MILEAGE = 10;
         this._musicToggleElement = document.querySelector('#music-toggle');
         this._musicSliderElement = document.querySelector('#music-slider');
@@ -14,6 +18,8 @@ var Car = /** @class */ (function () {
         this._milesElement = document.querySelector('#miles-value');
         this._audioElement = document.querySelector('#car-music');
         this.MAXIMUM_FUEL_CAPACITY = MAXIMUM_FUEL_CAPACITY;
+        this._engine = engine;
+        this._musicPlayer = musicPlayer;
         this.render();
     }
     Object.defineProperty(Car.prototype, "miles", {
@@ -50,10 +56,10 @@ var Car = /** @class */ (function () {
             if (_this._musicPlayer.volume === 0) {
                 _this._musicPlayer.turnOn();
                 _this._musicSliderElement.value = _this._musicPlayer.volume.toString();
-                _this._musicToggleElement.innerText = 'Turn music on';
+                _this._musicToggleElement.innerText = _this._musicTurnOn;
                 return;
             }
-            _this._musicToggleElement.innerText = 'Turn music off';
+            _this._musicToggleElement.innerText = _this._musicTurnOff;
             _this._musicPlayer.turnOff();
         });
         //music slider
@@ -61,17 +67,16 @@ var Car = /** @class */ (function () {
             var target = (event.target);
             _this._musicPlayer.volume = target.value;
             _this._audioElement.volume = _this._musicPlayer.volume / 100;
-            //@todo when you are repeating the same text over and over again maybe we should have made some constants for it? Can you do improve on this?
-            _this._musicToggleElement.innerText = _this._musicPlayer.volume ? 'Turn music off' : 'Turn music on';
+            _this._musicToggleElement.innerText = _this._musicPlayer.volume ? _this._musicTurnOff : _this._musicTurnOn;
         });
         //engine status
         this._engineToggleElement.addEventListener('click', function () {
             if (_this._engine.status) {
                 _this._engine.turnOff();
-                _this._engineToggleElement.innerText = 'Turn engine off';
+                _this._engineToggleElement.innerText = _this._musicTurnOff;
                 return;
             }
-            _this._engineToggleElement.innerText = 'Turn engine on';
+            _this._engineToggleElement.innerText = _this._musicTurnOn;
             _this._engine.turnOn();
         });
         //add fuel
@@ -95,4 +100,4 @@ var Car = /** @class */ (function () {
     };
     return Car;
 }());
-new Car(100);
+new Car(100, new MusicPlayer_1.MusicPlayer(), new Engine_1.Engine());

@@ -4,12 +4,14 @@ import {MusicPlayer} from "./MusicPlayer";
 class Car {
     private _miles: number = 0;
     private _fuel: number = 0;
+    private _musicTurnOn: string = 'Turn music on';
+    private _musicTurnOff: string = 'Turn music off';
     private readonly MAXIMUM_FUEL_CAPACITY: number;
     private readonly FUEL_MILEAGE: number = 10;
     private readonly _musicToggleElement = <HTMLElement>document.querySelector('#music-toggle');
     private readonly _musicSliderElement = <HTMLInputElement>document.querySelector('#music-slider');
     private readonly _engineToggleElement = <HTMLInputElement>document.querySelector('#engine-toggle');
-    private readonly _addFuelForm = document.querySelector('#add-fuel-form');
+    private readonly _addFuelForm = <HTMLButtonElement>document.querySelector('#add-fuel-form');
     private readonly _addFuelInput = <HTMLFormElement>document.querySelector('#add-fuel-input');
     private readonly _fuelLevelElement = <HTMLElement>document.querySelector('#fuel-level');
     private readonly _milesElement = <HTMLElement>document.querySelector('#miles-value');
@@ -17,8 +19,10 @@ class Car {
     private _musicPlayer: MusicPlayer;
     private _engine: Engine;
 
-    public constructor(MAXIMUM_FUEL_CAPACITY: number) {
+    public constructor(MAXIMUM_FUEL_CAPACITY: number, musicPlayer: MusicPlayer, engine: Engine) {
         this.MAXIMUM_FUEL_CAPACITY = MAXIMUM_FUEL_CAPACITY;
+        this._engine = engine;
+        this._musicPlayer = musicPlayer;
         this.render();
     }
 
@@ -52,10 +56,10 @@ class Car {
             if (this._musicPlayer.volume === 0) {
                 this._musicPlayer.turnOn();
                 this._musicSliderElement.value = this._musicPlayer.volume.toString();
-                this._musicToggleElement.innerText = 'Turn music on';
+                this._musicToggleElement.innerText = this._musicTurnOn;
                 return;
             }
-            this._musicToggleElement.innerText = 'Turn music off';
+            this._musicToggleElement.innerText = this._musicTurnOff;
             this._musicPlayer.turnOff();
         });
         //music slider
@@ -63,18 +67,16 @@ class Car {
             let target = <HTMLFormElement>(event.target);
             this._musicPlayer.volume = target.value;
             this._audioElement.volume = this._musicPlayer.volume / 100;
-
-            //@todo when you are repeating the same text over and over again maybe we should have made some constants for it? Can you do improve on this?
-            this._musicToggleElement.innerText = this._musicPlayer.volume ? 'Turn music off' : 'Turn music on';
+            this._musicToggleElement.innerText = this._musicPlayer.volume ? this._musicTurnOff : this._musicTurnOn;
         });
         //engine status
         this._engineToggleElement.addEventListener('click', () => {
             if (this._engine.status) {
                 this._engine.turnOff();
-                this._engineToggleElement.innerText = 'Turn engine off';
+                this._engineToggleElement.innerText = this._musicTurnOff;
                 return;
             }
-            this._engineToggleElement.innerText = 'Turn engine on';
+            this._engineToggleElement.innerText = this._musicTurnOn;
             this._engine.turnOn();
         });
         //add fuel
@@ -98,4 +100,4 @@ class Car {
     }
 }
 
-new Car(100);
+new Car(100, new MusicPlayer(), new Engine());

@@ -3,20 +3,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Engine = void 0;
 var Engine = /** @class */ (function () {
     function Engine() {
-        this._engineStatus = false;
+        this._status = false;
     }
     Object.defineProperty(Engine.prototype, "status", {
         get: function () {
-            return this._engineStatus;
+            return this._status;
         },
         enumerable: false,
         configurable: true
     });
     Engine.prototype.turnOn = function () {
-        this._engineStatus = true;
+        this._status = true;
     };
     Engine.prototype.turnOff = function () {
-        this._engineStatus = false;
+        this._status = false;
     };
     return Engine;
 }());
