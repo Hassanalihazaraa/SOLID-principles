@@ -145,6 +145,13 @@ function () {
     this._password = prompt('What is your new password?');
   };
 
+  Object.defineProperty(User.prototype, "password", {
+    get: function get() {
+      return this._password;
+    },
+    enumerable: false,
+    configurable: true
+  });
   return User;
 }(); //admin cannot use google or facebook token
 
@@ -164,6 +171,13 @@ function () {
     this._password = prompt('What is your new password?');
   };
 
+  Object.defineProperty(Admin.prototype, "password", {
+    get: function get() {
+      return this._password;
+    },
+    enumerable: false,
+    configurable: true
+  });
   return Admin;
 }();
 /*
@@ -204,12 +218,12 @@ document.querySelector('#login-form').addEventListener('submit', function (event
   event.preventDefault(); //let bot = typeGoogleElement.checked ? googleBot : googleBot;
 
   if (!loginAsAdminElement.checked) {
-    if (typeGoogleElement.checked && passwordElement.value !== 'admin') {
+    if (typeGoogleElement.checked && passwordElement.value !== admin.password) {
       user.setToken('secret_token_google');
       /* if (bot) {
            bot.setToken('secret_token_google');
        }*/
-    } else if (typeFacebookElement.checked && passwordElement.value !== 'admin') {
+    } else if (typeFacebookElement.checked && passwordElement.value !== admin.password) {
       user.setToken('secret_token_fb');
     }
   }
@@ -226,12 +240,12 @@ document.querySelector('#login-form').addEventListener('submit', function (event
       adminAuth = admin.checkPassword(passwordElement.value);
       break;
 
-    case typeGoogleElement.checked && !loginAsAdminElement.checked && passwordElement.value === 'user':
+    case typeGoogleElement.checked && !loginAsAdminElement.checked && passwordElement.value === user.password:
       userAuth = user.checkLogin('secret_token_google'); //: bot ? bot.checkLogin('secret_token_google') : false);
 
       break;
 
-    case typeFacebookElement.checked && !loginAsAdminElement.checked && passwordElement.value === 'user':
+    case typeFacebookElement.checked && !loginAsAdminElement.checked && passwordElement.value === user.password:
       userAuth = user.checkLogin('secret_token_fb');
       break;
   }
