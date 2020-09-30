@@ -3,7 +3,7 @@ var User = /** @class */ (function () {
         this._password = 'user';
     }
     User.prototype.checkLogin = function (token) {
-        return (token === this._facebookToken ? this._facebookToken : this._googleToken);
+        return (token === this._facebookToken || token === this._googleToken);
     };
     User.prototype.setToken = function (token) {
         if (token === this._facebookToken) {
@@ -30,70 +30,74 @@ var Admin = /** @class */ (function () {
     Admin.prototype.resetPassword = function () {
         this._password = prompt('What is your new password?');
     };
-    Admin.prototype.checkLogin = function (token) {
-        if (token === 'secret_token_fb' && token === 'secret_token_google') {
-            return;
-        }
-    };
-    Admin.prototype.setToken = function (token) {
-        throw new Error('Function not supported for admins');
-    };
     return Admin;
 }());
-var GoogleBot = /** @class */ (function () {
-    function GoogleBot() {
-        this._password = 'secret_token_google';
-    }
-    GoogleBot.prototype.checkLogin = function (token) {
+/*
+class GoogleBot implements Auth {
+    private _password: string;
+
+    checkLogin(token: string) {
         if (token === 'secret_token_google') {
-            return true;
+            return token;
         }
-    };
-    GoogleBot.prototype.checkPassword = function (password) {
+    }
+
+    checkPassword(password: string): boolean {
         return (password === this._password);
-    };
-    GoogleBot.prototype.resetPassword = function () {
+    }
+
+    resetPassword() {
         this._password = prompt('What is your new password?');
-    };
-    GoogleBot.prototype.setToken = function (token) {
-        return (token === this._password);
-    };
-    return GoogleBot;
-}());
+    }
+
+    setToken(token: string) {
+        this._password = token;
+    }
+}
+*/
 var passwordElement = document.querySelector('#password');
 var typePasswordElement = document.querySelector('#typePassword');
 var typeGoogleElement = document.querySelector('#typeGoogle');
 var typeFacebookElement = document.querySelector('#typeFacebook');
 var loginAsAdminElement = document.querySelector('#loginAsAdmin');
 var resetPasswordElement = document.querySelector('#resetPassword');
-var guest = new User;
+var user = new User;
 var admin = new Admin;
+//let googleBot = new GoogleBot;
 document.querySelector('#login-form').addEventListener('submit', function (event) {
     event.preventDefault();
-    var user = loginAsAdminElement.checked ? admin : guest;
+    //let bot = typeGoogleElement.checked ? googleBot : googleBot;
     if (!loginAsAdminElement.checked) {
-        if (typeGoogleElement.checked) {
+        if (typeGoogleElement.checked && passwordElement.value !== 'admin') {
             user.setToken('secret_token_google');
+            /* if (bot) {
+                 bot.setToken('secret_token_google');
+             }*/
         }
-        else if (typeFacebookElement.checked) {
+        else if (typeFacebookElement.checked && passwordElement.value !== 'admin') {
             user.setToken('secret_token_fb');
         }
     }
-    debugger;
-    var auth = false;
+    var userAuth = false;
+    var adminAuth = false;
     switch (true) {
-        case typePasswordElement.checked:
-            auth = user.checkPassword(passwordElement.value);
+        case typePasswordElement.checked && !loginAsAdminElement.checked:
+            userAuth = user.checkPassword(passwordElement.value);
             break;
-        case typeGoogleElement.checked:
-            auth = user.checkLogin('secret_token_google');
+        case typePasswordElement.checked && loginAsAdminElement.checked:
+            adminAuth = admin.checkPassword(passwordElement.value);
             break;
-        case typeFacebookElement.checked:
-            debugger;
-            auth = user.checkLogin('secret_token_fb');
+        case typeGoogleElement.checked && !loginAsAdminElement.checked && passwordElement.value === 'user':
+            userAuth = user.checkLogin('secret_token_google'); //: bot ? bot.checkLogin('secret_token_google') : false);
+            break;
+        case typeFacebookElement.checked && !loginAsAdminElement.checked && passwordElement.value === 'user':
+            userAuth = user.checkLogin('secret_token_fb');
             break;
     }
-    if (auth) {
+    if (userAuth || adminAuth) {
+        alert('login success');
+    }
+    else if (adminAuth) {
         alert('login success');
     }
     else {
@@ -102,6 +106,6 @@ document.querySelector('#login-form').addEventListener('submit', function (event
 });
 resetPasswordElement.addEventListener('click', function (event) {
     event.preventDefault();
-    var user = loginAsAdminElement.checked ? admin : guest;
-    user.resetPassword();
+    var userReset = loginAsAdminElement.checked ? admin : user;
+    userReset.resetPassword();
 });
